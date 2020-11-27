@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Sockets;
 
 namespace BruteFroceIpFinder
 {
@@ -8,8 +9,7 @@ namespace BruteFroceIpFinder
     {
         static void Main(string[] args)
         {
-            List<string> Ips = new List<string>();
-            int firstNumber = 30;
+            int firstNumber = 172;
             int secondNumber = 1;
             int thirdNumber = 1;
             int fourthNumber = 1;
@@ -26,17 +26,22 @@ namespace BruteFroceIpFinder
                         while (fourthNumber <= 255)
                         {
                             Ip = firstNumber + "." + secondNumber + "." + thirdNumber + "." + fourthNumber;
-                            Ips.Add(Ip);
+                            Int32 port = 25565;
+                            TcpClient client = new TcpClient();
+                            if (client.ConnectAsync(Ip, port).Wait(TimeSpan.FromMilliseconds(1)))
+                            {
+                                Console.WriteLine("FOUND ONE:" + Ip);
+                            }
+                            client.Close();
                             fourthNumber++;
                         }
                         thirdNumber++;
                     }
                     secondNumber++;
-                    Console.WriteLine(Ip);
                 }
                 firstNumber++;
+                Console.WriteLine(Ip);
             }
-            File.WriteAllLines(@"IPList", Ips);
         }
     }
 }
