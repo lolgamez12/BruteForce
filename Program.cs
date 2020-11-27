@@ -13,10 +13,11 @@ namespace BruteFroceIpFinder
             int secondNumber = 1;
             int thirdNumber = 1;
             int fourthNumber = 1;
-            while (firstNumber <= 185)
+            string Ip = "";
+            while (firstNumber <= 192)
             {
                 secondNumber = 1;
-                while (secondNumber <= 255)
+                while (secondNumber <= 168)
                 {
                     thirdNumber = 1;
                     while (thirdNumber <= 255)
@@ -24,12 +25,14 @@ namespace BruteFroceIpFinder
                         fourthNumber = 1;
                         while (fourthNumber <= 255)
                         {
-                            Ips.Add(firstNumber + "." + secondNumber + "." + thirdNumber + "." + fourthNumber);
+                            Ip = firstNumber + "." + secondNumber + "." + thirdNumber + "." + fourthNumber;
+                            Ips.Add(Ip);
                             fourthNumber++;
                         }
                         thirdNumber++;
                     }
                     secondNumber++;
+                    Console.WriteLine(Ip);
                 }
                 firstNumber++;
             }
